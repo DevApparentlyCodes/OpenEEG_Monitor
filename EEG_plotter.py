@@ -11,8 +11,8 @@ from scipy.signal import butter, filtfilt, iirnotch
 @dataclass
 class EEGConfig:
     port : str = "COM3"
-    baud_rate : int = 115200
-    sampling_rate : int = 1000
+    baud_rate : int = 9600
+    sampling_rate : int = 250
     
     buffer_size : int = 1000
     
@@ -90,14 +90,14 @@ class EEGMonitor:
 
       
     def update(self):
-        while self.serial.in_waiting:
+        while self.serial.in_waiting >=2:
             try:
-                line = self.serial.readline().decode().strip()
-                new_Value = int(line)
+                raw_bytes = self.serial.read(2)
+                new_Value = int.from_bytes(raw_bytes, byteorder='little')
                 self.data_buffer = np.roll(self.data_buffer, -1)
                 self.data_buffer[-1] = new_Value
             except ValueError:
-                print(f"Read invalid data : {line}")
+                print(f"Read invalid data : {new_Value}")
             except serial.SerialException as e:
                 print(f"Serial Port Exception : {e}")
                 self.serial.close()

@@ -1,10 +1,8 @@
-const int SAMPLE_RATE = 1000;
+const int SAMPLE_RATE = 250;
 const int ADC_PIN = A0;
 
 void setup(){
-    Serial.begin(115200);
-
-    analogReadResolution(10);
+    Serial.begin(9600);
 }
 
 
@@ -17,6 +15,6 @@ void loop() {
       
       int sample = analogRead(ADC_PIN);
       
-      Serial.println(sample);
+      Serial.write((byte*)sample, sizeof(sample));
     }
   }
