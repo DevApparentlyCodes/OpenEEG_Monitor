@@ -11,7 +11,7 @@ from scipy.signal import butter, filtfilt, iirnotch
 @dataclass
 class EEGConfig:
     port : str = "COM3"
-    baud_rate : int = 9600
+    baud_rate : int = 115200
     sampling_rate : int = 250
     
     buffer_size : int = 1000

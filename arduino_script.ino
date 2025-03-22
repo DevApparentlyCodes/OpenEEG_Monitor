@@ -2,7 +2,7 @@ const int SAMPLE_RATE = 250;
 const int ADC_PIN = A0;
 
 void setup(){
-    Serial.begin(9600);
+    Serial.begin(115200);
 }
 
 
